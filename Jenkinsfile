@@ -7,9 +7,9 @@ pipeline {
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
         TARGETDATABASENAME = "hertz"
-        HOST = ""
-        USERNAME = ""
-        PASSWORD = ""
+        host = ""
+        username = ""
+        password = ""
     }
 
     stages {

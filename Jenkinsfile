@@ -19,7 +19,7 @@ pipeline {
               
               host = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host
               
-              echo $host
+              echo ${host}
               '''
             }
         }

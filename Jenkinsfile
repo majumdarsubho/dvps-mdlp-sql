@@ -16,17 +16,17 @@ pipeline {
         stage('Read secrets and build schema') {
             steps {
                 sh'''#!/bin/bash
-                    echo "$(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host)" >> $HOST
+                    host = $(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host)
 
-                    echo "$(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username)" >> $USERNAME
+                    username = $(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username)
 
-                    echo "$(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password)" >> $PASSWORD
+                    password = $(aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password)
                     
 
                     echo $DIR
-                    echo $HOST
-                    echo $USERNAME
-                    echo $PASSWORD
+                    echo $host
+                    echo $username
+                    echo $password
                     
                 '''
               

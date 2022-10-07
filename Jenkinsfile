@@ -32,8 +32,9 @@ pipeline {
                 
                 echo $DIR
                 echo $TARGETDATABASENAME
+                echo $env.HOST
                 
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$PASSWORD
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$env.HOST /tu:$env.USERNAME /tp:env.$PASSWORD
                 
                 '''
              

@@ -26,7 +26,7 @@ pipeline {
                 println "password within script: ${password}"
                 sh'''#!/bin/bash
                 echo $DIR
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:host /tu:username /tp:password
+                
                 '''
               }
             }
@@ -38,7 +38,7 @@ pipeline {
                 
                 
                 echo $TARGETDATABASENAME
-                echo ${host} ${username} ${password}
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
                 
                 '''
              

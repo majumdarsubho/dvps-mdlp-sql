@@ -1,9 +1,5 @@
 pipeline {
-    environment {
-        host = ''
-        username = ''
-        password = ''
-    }
+    
     agent any
     environment {
         SQLPACKAGEPATH  = "/var/lib/jenkins/sqlpackage/sqlpackage"
@@ -11,6 +7,9 @@ pipeline {
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
         TARGETDATABASENAME = "hertz"
+        host = ""
+        username = ""
+        password = ""
     }
 
     stages {

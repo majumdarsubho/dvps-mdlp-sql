@@ -7,13 +7,10 @@ pipeline {
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
         TARGETDATABASENAME = "hertzdb"
-        HOST = ""
-        USERNAME = ""
-        PASSWORD = ""
     }
 
     stages {
-        stage('Read secrets and build schema') {
+        stage('Read Secrets and Deploy DACPAC') {
             steps {
                 sh'''#!/bin/bash
                     host=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host`
@@ -25,25 +22,11 @@ pipeline {
                     echo "${host}"
                     echo "${username}"
                     echo "${password}"
-                    HOST=${host}
-                    USERNAME=${username}
-                    PASSWORD=${password}
+                    
+                    ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
+                    
                 '''
               
-            }
-        }
-        stage('Build schema') {
-            steps {
-                
-                sh'''#!/bin/bash
-                
-                echo $DIR
-                echo $TARGETDATABASENAME
-                
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$PASSWORD
-                
-                '''
-             
             }
         }
     }

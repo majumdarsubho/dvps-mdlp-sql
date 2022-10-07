@@ -2,7 +2,7 @@
 pipeline {
     agent any
     environment {
-        SQLPACKAGEPATH  = /var/lib/jenkins/sqlpackage/sqlpackage
+        SQLPACKAGEPATH  = "/var/lib/jenkins/sqlpackage/sqlpackage"
         BUILDPATH       = "${WORKSPACE}/Builds/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"

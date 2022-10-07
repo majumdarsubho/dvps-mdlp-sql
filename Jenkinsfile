@@ -26,7 +26,7 @@ pipeline {
                 println "password within script: ${password}"
                 sh'''#!/bin/bash
                 echo $DIR
-                
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:admin /tp:IBMHertz-Project121
                 '''
               }
             }
@@ -38,7 +38,6 @@ pipeline {
                 
                 
                 echo $TARGETDATABASENAME
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:admin /tp:IBMHertz-Project121
                 
                 '''
              

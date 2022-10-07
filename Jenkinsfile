@@ -16,6 +16,14 @@ pipeline {
   }
 
     stages {
+        stage('Read Secrets') {
+            steps {
+              script {
+                username = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username", returnStdout: true)
+                password = sh (script: "aws secretsmanager get-secret-value --region us-east-2 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password", returnStdout: true)
+              }
+            }
+        }
         stage('Build schema') {
             steps {
                 slackSend color: '#BADA55', message: 'Schema Build Pipeline Started'
@@ -23,7 +31,7 @@ pipeline {
                 
                 echo $DIR
                 
-                /var/lib/jenkins/sqlpackage/sqlpackage /action:Publish /SourceFile:$DIR /TargetDatabaseName:hertz /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:admin /tp:"IBMHertz-Project121"
+                
                 '''
                 slackSend color: '#BADA55', message: 'Schema Build Successfully'
              

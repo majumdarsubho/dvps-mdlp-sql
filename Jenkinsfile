@@ -17,11 +17,11 @@ pipeline {
             steps {
               script {
                 def host = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host", returnStdout: true)
+                println "host within script: ${host}"
                 def username = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username", returnStdout: true)
+                println "username within script: ${username}"
                 def password = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password", returnStdout: true)
-                sh (script: "echo ${host}")
-                sh (script: "echo ${username}")
-                sh (script: "echo ${password}")
+                println "password within script: ${password}"
                 HOST = host
                 USERNAME = username
                 PASSWORD = password
@@ -35,8 +35,7 @@ pipeline {
                 
                 echo $DIR
                 echo $TARGETDATABASENAME
-                
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
+                echo ${HOST} ${USERNAME} ${PASSWORD}
                 
                 '''
              

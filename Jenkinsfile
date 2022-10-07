@@ -29,7 +29,7 @@ pipeline {
                 echo ${host}
                 echo ${username}
                 echo ${password}
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:admin /tp:IBMHertz-Project121
+                ${SQLPACKAGEPATH} action:Publish SourceFile:$DIR TargetDatabaseName:$TARGETDATABASENAME tsn:${host} tu:admin tp:IBMHertz-Project121
                 '''
               }
             }

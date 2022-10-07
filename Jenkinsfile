@@ -22,8 +22,6 @@ pipeline {
 
                     password=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
                     
-
-                    echo $DIR
                     echo "${host}"
                     echo "${username}"
                     echo "${password}"
@@ -37,8 +35,10 @@ pipeline {
                 
                 sh'''#!/bin/bash 
                 
-                
+                echo $DIR
                 echo $TARGETDATABASENAME
+                
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
                 
                 '''
              

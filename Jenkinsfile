@@ -6,7 +6,7 @@ pipeline {
         BUILDPATH       = "${WORKSPACE}/Builds/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
-        TARGETDATABASENAME = "hertz"
+        TARGETDATABASENAME = "hertzdb"
         HOST = ""
         USERNAME = ""
         PASSWORD = ""

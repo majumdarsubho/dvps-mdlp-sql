@@ -25,9 +25,9 @@ pipeline {
                     echo "${host}"
                     echo "${username}"
                     echo "${password}"
-                    HOST=$host
-                    USERNAME=$username
-                    PASSWORD=$password
+                    HOST=${host}
+                    USERNAME=${username}
+                    PASSWORD=${password}
                 '''
               
             }

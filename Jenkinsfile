@@ -1,3 +1,6 @@
+def host = ''
+def username = ''
+def password = ''
 
 pipeline {
     agent any

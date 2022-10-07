@@ -22,9 +22,9 @@ pipeline {
                 sh (script: "echo ${host}")
                 sh (script: "echo ${username}")
                 sh (script: "echo ${password}")
-                env.HOST = host
-                env.USERNAME = username
-                env.PASSWORD = password
+                HOST = host
+                USERNAME = username
+                PASSWORD = password
               }
             }
         }
@@ -37,7 +37,7 @@ pipeline {
                 echo $TARGETDATABASENAME
                 echo $env.HOST
                 
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$env.HOST /tu:$env.USERNAME /tp:env.$PASSWORD
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$PASSWORD
                 
                 '''
              

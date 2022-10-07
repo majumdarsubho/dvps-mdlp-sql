@@ -30,7 +30,7 @@ pipeline {
                 echo $DIR
                 echo $TARGETDATABASENAME
                 
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:'${username}' /tp:IBMHertz-Project121
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:${username} /tp:IBMHertz-Project121
                 
                 '''
              

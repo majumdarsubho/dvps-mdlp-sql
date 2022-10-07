@@ -35,7 +35,7 @@ pipeline {
                 
                 echo $DIR
                 echo $TARGETDATABASENAME
-                echo ${HOST} ${USERNAME} ${PASSWORD}
+                echo ${host} ${username} ${password}
                 
                 '''
              

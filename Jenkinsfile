@@ -24,9 +24,9 @@ pipeline {
                     
 
                     echo $DIR
-                    echo $host
-                    echo $username
-                    echo $password
+                    echo "${host}"
+                    echo "${username}"
+                    echo "${password}"
                     
                 '''
               

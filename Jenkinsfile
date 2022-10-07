@@ -7,9 +7,9 @@ pipeline {
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
         TARGETDATABASENAME = "hertz"
-        host = ""
-        username = ""
-        password = ""
+        HOST = ""
+        USERNAME = ""
+        PASSWORD = ""
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
             steps {
                 sh'''#!/bin/bash
                     host=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host`
-
+                    
                     username=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username`
 
                     password=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
@@ -25,10 +25,9 @@ pipeline {
                     echo "${host}"
                     echo "${username}"
                     echo "${password}"
-                    echo $DIR
-                    echo $TARGETDATABASENAME
-                    
-                    ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
+                    HOST=host
+                    USERNAME=username
+                    PASSWORD=password
                 '''
               
             }
@@ -36,11 +35,12 @@ pipeline {
         stage('Build schema') {
             steps {
                 
-                sh'''#!/bin/bash 
+                sh'''#!/bin/bash
                 
+                echo $DIR
+                echo $TARGETDATABASENAME
                 
-                
-                
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$PASSWORD
                 
                 '''
              

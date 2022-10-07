@@ -18,8 +18,9 @@ pipeline {
               sh'''#!/bin/bash
               
               host = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host
+              username = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username
+              password = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password
               
-              echo ${host}
               '''
             }
         }
@@ -31,7 +32,7 @@ pipeline {
                 echo $DIR
                 echo $TARGETDATABASENAME
                 
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com /tu:$username /tp:IBMHertz-Project121
+                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
                 
                 '''
              

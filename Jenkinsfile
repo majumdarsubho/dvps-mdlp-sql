@@ -15,23 +15,21 @@ pipeline {
     stages {
         stage('Read secrets and build schema') {
             steps {
-              script {
-                def host = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host", returnStdout: true)
-                
-                def username = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username", returnStdout: true)
-                
-                def password = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password", returnStdout: true)
-                println "host within script: ${host}"
-                println "username within script: ${username}"
-                println "password within script: ${password}"
                 sh'''#!/bin/bash
-                echo $DIR
-                echo ${host}
-                echo ${username}
-                echo ${password}
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:${host} /tu:admin /tp:IBMHertz-Project121
+                    host = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host
+
+                    username = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username
+
+                    password = aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password
+                    
+
+                    echo $DIR
+                    echo $host
+                    echo $username
+                    echo $password
+                    
                 '''
-              }
+              
             }
         }
         stage('Build schema') {

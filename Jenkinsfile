@@ -20,6 +20,9 @@ pipeline {
                 username = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username", returnStdout: true)
                 password = sh (script: "aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password", returnStdout: true)
               }
+              sh'''#!/bin/bash
+              echo $username
+              '''
             }
         }
         stage('Build schema') {

@@ -25,7 +25,10 @@ pipeline {
                     echo "${host}"
                     echo "${username}"
                     echo "${password}"
+                    echo $DIR
+                    echo $TARGETDATABASENAME
                     
+                    ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
                 '''
               
             }
@@ -35,10 +38,9 @@ pipeline {
                 
                 sh'''#!/bin/bash 
                 
-                echo $DIR
-                echo $TARGETDATABASENAME
                 
-                ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:${host} /tu:${username} /tp:${password}
+                
+                
                 
                 '''
              

@@ -28,6 +28,7 @@ pipeline {
                 sh'''#!/bin/bash 
                 
                 echo $DIR
+                echo $TARGETDATABASENAME
                 
                 ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
                 

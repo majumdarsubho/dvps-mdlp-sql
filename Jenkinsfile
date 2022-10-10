@@ -16,10 +16,8 @@ pipeline {
         
         stage('Checkout') {
             steps{
-              sh'''#!/bin/bash
               echo "Pulling ${CURRENTRELEASE} Branch from Github"
               git branch: CURRENTRELEASE, credentialsId: GITHUBCREDID, url: GITREPOREMOTE
-              '''
             }
         }
         

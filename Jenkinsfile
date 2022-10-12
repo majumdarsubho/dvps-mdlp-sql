@@ -9,6 +9,8 @@ pipeline {
         BUILDPATH       = "${WORKSPACE}/Builds/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
+        HOST            = "demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com"
+        USERNAME        = "admin"
         TARGETDATABASENAME = "hertzdb"
     }
 
@@ -24,16 +26,12 @@ pipeline {
         stage('Read Secrets and Deploy DACPAC') {
             steps {
                 sh'''#!/bin/bash
-                    host=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .host`
-                    
-                    username=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .username`
 
                     password=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
                     
-                    echo "Host is: ${host}"
-                    echo "Username: ${username}"
+                    echo "Passsword retrieved"
                     
-                    ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$host /tu:$username /tp:$password
+                    ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$password
                     
                 '''
               

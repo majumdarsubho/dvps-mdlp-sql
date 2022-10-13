@@ -9,6 +9,7 @@ pipeline {
         BUILDPATH       = "${WORKSPACE}/Builds/${env.JOB_NAME}-${env.BUILD_NUMBER}"
         SCRIPTPATH      = "./Scripts"
         DIR             = "${WORKSPACE}/Framework.dacpac"
+        AWSREGION       = "us-east-1"
         HOST            = "demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com"
         USERNAME        = "admin"
         TARGETDATABASENAME = "hertzdb"
@@ -27,7 +28,7 @@ pipeline {
             steps {
                 sh'''#!/bin/bash
 
-                    password=`aws secretsmanager get-secret-value --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
+                    password=`aws secretsmanager get-secret-value --region $AWSREGION --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
                     
                     echo "Passsword retrieved"
                     

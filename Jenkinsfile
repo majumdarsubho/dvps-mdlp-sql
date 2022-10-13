@@ -27,7 +27,7 @@ pipeline {
             steps {
                 sh'''#!/bin/bash
 
-                    password=`aws secretsmanager get-secret-value --region us-east-1 --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
+                    password=`aws secretsmanager get-secret-value --secret-id sandbox/IBMHertz/jenkins-app | jq -r .SecretString | jq -r .password`
                     
                     echo "Passsword retrieved"
                     

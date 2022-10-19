@@ -12,7 +12,7 @@ pipeline {
         AWSREGION       = "us-east-1"
         HOST            = "demo-db.cof6rbxdsl87.us-east-1.rds.amazonaws.com"
         USERNAME        = "admin"
-        TARGETDATABASENAME = "hertzdb"
+        TARGETDATABASENAME = "dpa-metadata"
     }
 
     stages {

@@ -32,6 +32,8 @@ pipeline {
                     
                     echo "Passsword retrieved"
                     
+                    ${SQLPACKAGEPATH} -version
+                    
                     ${SQLPACKAGEPATH} /action:Publish /SourceFile:$DIR /TargetDatabaseName:$TARGETDATABASENAME /tsn:$HOST /tu:$USERNAME /tp:$password
                     
                 '''
